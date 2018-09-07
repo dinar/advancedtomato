@@ -2353,7 +2353,6 @@ void start_services(void)
 	}
 
 //	start_syslog();
-	start_nas();
 	start_zebra();
 #ifdef TCONFIG_SDHC
 	start_mmc();
