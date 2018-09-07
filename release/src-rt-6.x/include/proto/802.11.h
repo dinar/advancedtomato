@@ -1245,7 +1245,10 @@ typedef struct ti_ie ti_ie_t;
 #define	DOT11_ACTION_CAT_SA_QUERY	8	/* security association query */
 #define	DOT11_ACTION_CAT_PDPA		9	/* protected dual of public action */
 #define DOT11_ACTION_CAT_BSSMGMT	10	/* category for BSS transition management */
+#define DOT11_ACTION_CAT_WNM		10	/* category for WNM */
+#define DOT11_ACTION_CAT_UWNM		11	/* category for Unprotected WNM */
 #define DOT11_ACTION_NOTIFICATION	17
+#define DOT11_ACTION_CAT_VHT		21	/* VHT action */
 #define DOT11_ACTION_CAT_VSP		126	/* protected vendor specific */
 #define DOT11_ACTION_CAT_VS		127	/* category Vendor Specific */
 

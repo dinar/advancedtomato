@@ -89,18 +89,18 @@ typedef BWL_PRE_PACKED_STRUCT struct bcm_event {
 #define BCM_MSG_LEN	(sizeof(bcm_event_t) - sizeof(bcmeth_hdr_t) - sizeof(struct ether_header))
 
 /* Event messages */
-#define WLC_E_SET_SSID		0	/* indicates status of set SSID */
-#define WLC_E_JOIN		1	/* differentiates join IBSS from found (WLC_E_START) IBSS */
-#define WLC_E_START		2	/* STA founded an IBSS or AP started a BSS */
-#define WLC_E_AUTH		3	/* 802.11 AUTH request */
-#define WLC_E_AUTH_IND		4	/* 802.11 AUTH indication */
-#define WLC_E_DEAUTH		5	/* 802.11 DEAUTH request */
-#define WLC_E_DEAUTH_IND	6	/* 802.11 DEAUTH indication */
-#define WLC_E_ASSOC		7	/* 802.11 ASSOC request */
-#define WLC_E_ASSOC_IND		8	/* 802.11 ASSOC indication */
-#define WLC_E_REASSOC		9	/* 802.11 REASSOC request */
-#define WLC_E_REASSOC_IND	10	/* 802.11 REASSOC indication */
-#define WLC_E_DISASSOC		11	/* 802.11 DISASSOC request */
+#define WLC_E_SET_SSID			0	/* indicates status of set SSID */
+#define WLC_E_JOIN			1	/* differentiates join IBSS from found (WLC_E_START) IBSS */
+#define WLC_E_START			2	/* STA founded an IBSS or AP started a BSS */
+#define WLC_E_AUTH			3	/* 802.11 AUTH request */
+#define WLC_E_AUTH_IND			4	/* 802.11 AUTH indication */
+#define WLC_E_DEAUTH			5	/* 802.11 DEAUTH request */
+#define WLC_E_DEAUTH_IND		6	/* 802.11 DEAUTH indication */
+#define WLC_E_ASSOC			7	/* 802.11 ASSOC request */
+#define WLC_E_ASSOC_IND			8	/* 802.11 ASSOC indication */
+#define WLC_E_REASSOC			9	/* 802.11 REASSOC request */
+#define WLC_E_REASSOC_IND		10	/* 802.11 REASSOC indication */
+#define WLC_E_DISASSOC			11	/* 802.11 DISASSOC request */
 #define WLC_E_DISASSOC_IND	12	/* 802.11 DISASSOC indication */
 #define WLC_E_QUIET_START	13	/* 802.11h Quiet period started */
 #define WLC_E_QUIET_END		14	/* 802.11h Quiet period ended */
@@ -136,11 +136,11 @@ typedef BWL_PRE_PACKED_STRUCT struct bcm_event {
 #define WLC_E_PSK_SUP		46	/* WPA Handshake fail */
 #define WLC_E_COUNTRY_CODE_CHANGED	47
 #define	WLC_E_EXCEEDED_MEDIUM_TIME	48	/* WMMAC excedded medium time */
-#define WLC_E_ICV_ERROR		49	/* WEP ICV error occurred */
+#define WLC_E_ICV_ERROR			49	/* WEP ICV error occurred */
 #define WLC_E_UNICAST_DECODE_ERROR	50	/* Unsupported unicast encrypted frame */
 #define WLC_E_MULTICAST_DECODE_ERROR	51 /* Unsupported multicast encrypted frame */
-#define WLC_E_TRACE		52
-#define WLC_E_IF		54	/* I/F change (for dongle host notification) */
+#define WLC_E_TRACE			52
+#define WLC_E_IF			54	/* I/F change (for dongle host notification) */
 #define WLC_E_P2P_DISC_LISTEN_COMPLETE	55	/* listen state expires */
 #define WLC_E_RSSI		56	/* indicate RSSI change based on configured levels */
 #define WLC_E_PFN_SCAN_COMPLETE	57	/* PFN completed scan of network list */
@@ -179,14 +179,51 @@ typedef BWL_PRE_PACKED_STRUCT struct bcm_event {
 #define WLC_E_REASSOC_IND_NDIS		86	/* 802.11 REASSOC indication for NDIS only */
 #define WLC_E_ASSOC_REQ_IE 		87
 #define WLC_E_ASSOC_RESP_IE 		88
-#define WLC_E_ASSOC_RECREATED	89	/* association recreated on resume */
+#define WLC_E_ASSOC_RECREATED		89	/* association recreated on resume */
 #define WLC_E_ACTION_FRAME_RX_NDIS	90	/* rx action frame event for NDIS only */
-#define WLC_E_AUTH_REQ		91	/* authentication request received */
-#define WLC_E_TDLS_PEER_EVENT 	92	/* discovered peer, connected or disconnected peer */
+#define WLC_E_AUTH_REQ			91	/* authentication request received */
+#define WLC_E_TDLS_PEER_EVENT 		92	/* discovered peer, connected or disconnected peer */
 #define WLC_E_SPEEDY_RECREATE_FAIL	93	/* fast assoc recreation failed */
 #define WLC_E_NATIVE			94	/* port-specific event and payload (e.g. NDIS) */
-#define WLC_E_LAST			95	/* highest val + 1 for range checking */
-
+#define WLC_E_PKTDELAY_IND		95	/* event for tx pkt delay suddently jump */
+#define WLC_E_AWDL_AW			96	/* AWDL AW period starts */
+#define WLC_E_AWDL_ROLE			97	/* AWDL Master/Slave/NE master role event */
+#define WLC_E_AWDL_EVENT		98	/* Generic AWDL event */
+#ifdef WLNIC
+#define WLC_E_NIC_AF_TXS		99	/* NIC AF txstatus */
+#define WLC_E_NIC_NIC_REPORT		100	/* NIC period report */
+#endif
+#define WLC_E_BEACON_FRAME_RX		101
+#define WLC_E_SERVICE_FOUND		102	/* desired service found */
+#define WLC_E_GAS_FRAGMENT_RX		103	/* GAS fragment received */
+#define WLC_E_GAS_COMPLETE		104	/* GAS sessions all complete */
+#define WLC_E_P2PO_ADD_DEVICE		105	/* New device found by p2p offload */
+#define WLC_E_P2PO_DEL_DEVICE		106	/* device has been removed by p2p offload */
+#define WLC_E_WNM_STA_SLEEP		107	/* WNM event to notify STA enter sleep mode */
+#define WLC_E_TXFAIL_THRESH		108	/* Indication of MAC tx failures (exhaustion of
+						 * 802.11 retries) exceeding threshold(s)
+						 */
+#define WLC_E_PROXD			109	/* Proximity Detection event */
+#define WLC_E_IBSS_COALESCE		110	/* IBSS Coalescing */
+#define WLC_E_AWDL_AW_EXT_END		111	/* AWDL extended period ends */
+#define WLC_E_AWDL_AW_EXT_START		112	/* SWDL AW extension start */
+#define WLC_E_AWDL_AW_START		113	/* AWDL start Event to inform host  */
+#define WLC_E_AWDL_RADIO_OFF		114	/* Radio Off  */
+#define WLC_E_AWDL_PEER_STATE		115	/* AWDL peer state open/close */
+#define WLC_E_AWDL_SYNC_STATE_CHANGED	116	/* AWDL sync role changed */
+#define WLC_E_AWDL_CHIP_RESET		117	/* infroms the interface of a chip rest */
+#define WLC_E_AWDL_INTERLEAVED_SCAN_START	118
+#define WLC_E_AWDL_INTERLEAVED_SCAN_STOP	119
+#define WLC_E_AWDL_PEER_CACHE_CONTROL		120
+#define WLC_E_CSA_START_IND		121
+#define WLC_E_CSA_DONE_IND		122
+#define WLC_E_CSA_FAILURE_IND		123
+#define WLC_E_CCA_CHAN_QUAL		124	/* CCA based channel quality report */
+#define WLC_E_BSSID			125	/* to report change in BSSID while roaming */
+#define WLC_E_TX_STAT_ERROR		126	/* tx error indication */
+#define WLC_E_BCMC_CREDIT_SUPPORT	127	/* credit check for BCMC supported */
+#define WLC_E_PSTA_PRIMARY_INTF_IND	128	/* psta primary interface indication */
+#define WLC_E_LAST			129	/* highest val + 1 for range checking */
 
 /* Table of event name strings for UIs and debugging dumps */
 typedef struct {
