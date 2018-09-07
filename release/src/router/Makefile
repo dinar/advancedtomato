@@ -50,6 +50,7 @@ obj-y += etc
 # obj-y += vlan # use Busybox vconfig
 obj-y += pppd
 obj-y += rp-pppoe
+obj-y += tcpdump
 obj-y += utils
 obj-y += ntpc
 obj-y += rstats
