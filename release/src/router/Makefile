@@ -51,6 +51,7 @@ obj-y += etc
 obj-y += pppd
 obj-y += rp-pppoe
 obj-y += tcpdump
+obj-y += libpcap
 obj-y += utils
 obj-y += ntpc
 obj-y += rstats
@@ -2544,6 +2545,44 @@ dnscrypt-install: dnscrypt
 dnscrypt-clean:
 	-@$(MAKE) -C dnscrypt clean
 	@rm -rf dnscrypt/stamp-h1 dnscrypt/src/dnscrypt-proxy/.deps dnscrypt/Makefile
+
+libpcap/stamp-h1:
+	@cd libpcap && \
+	CFLAGS="-Os -Wall $(EXTRACFLAGS) -D_GNU_SOURCE -ffunction-sections -fdata-sections" \
+	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -fPIC" \
+	ac_cv_func_setpgrp_void=yes \
+        $(CONFIGURE) --enable-shared --disable-yydebug --with-pcap=linux --without-septel \
+        --without-dag --without-libnl --without-snf --disable-can \
+	--disable-canusb --disable-dbus --disable-bluetooth
+	touch libpcap/stamp-h1
+
+libpcap: libpcap/stamp-h1
+	@$(SEP)
+	@$(MAKE) -C libpcap
+
+libpcap-install: libpcap
+	install -D libpcap/libpcap.so.1.8.1 $(INSTALLDIR)/libpcap/usr/lib/libpcap.so.1.8.1
+	$(STRIP) $(INSTALLDIR)/libpcap/usr/lib/libpcap.so.1.8.1
+
+tcpdump/stamp-h1: libpcap
+	@cd tcpdump && \
+	CFLAGS="-Os -Wall $(EXTRACFLAGS) -D_GNU_SOURCE -ffunction-sections -fdata-sections" \
+	LDFLAGS="-ffunction-sections -fdata-sections -Wl,--gc-sections -fPIC" \
+	ac_cv_func_setpgrp_void=yes \
+	$(CONFIGURE) --without-crypto
+	touch tcpdump/stamp-h1
+
+tcpdump: tcpdump/stamp-h1
+	@$(SEP)
+	@$(MAKE) -C tcpdump
+
+tcpdump-install: tcpdump
+	install -D tcpdump/tcpdump $(INSTALLDIR)/tcpdump/usr/sbin/tcpdump
+	$(STRIP) $(INSTALLDIR)/tcpdump/usr/sbin/tcpdump
+
+tcpdump-clean:
+	@$(MAKE) -C tcpdump clean
+	@rm -f tcpdump/Makefile tcpdump/stamp-h1
 
 tor/stamp-h1: openssl zlib libevent
 	cd $(TOP)/tor && CC=$(CC) STRIP='mipsel-uclibc-strip' \
